@@ -12,7 +12,7 @@ export default function CountAcara() {
   useEffect(() => {
     const fetchAcaraCount = async () => {
       try {
-        const acaraCollection = collection(db, "acara");
+        const acaraCollection = collection(db, "events"); // Sesuaikan dengan koleksi yang digunakan di AdminEventForm
         const acaraSnapshot = await getDocs(acaraCollection);
         setAcaraCount(acaraSnapshot.size);
       } catch (err) {

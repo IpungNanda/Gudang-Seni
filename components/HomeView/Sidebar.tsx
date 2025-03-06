@@ -89,12 +89,6 @@ const Sidebar = () => {
             </Link>
           </li>
           <li className="py-4 flex px-6 hover:bg-green-900/90">
-            <FaNewspaper />
-            <Link href="/admin-workstation/detail-acara" className="block font-bold">
-              Detail Acara
-            </Link>
-          </li>
-          <li className="py-4 flex px-6 hover:bg-green-900/90">
             <FaComments />
             <Link href="/admin-workstation/produk-kesenian" className="block font-bold">
               Produk Kesenian

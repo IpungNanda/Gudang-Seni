@@ -9,8 +9,6 @@ import ProdukPage from "@/pages/produkkesenian/produkpage";
 import CountProduk from "@/pages/produkkesenian/countproduk";
 import CountJasa from "@/pages/jasakesenian/countjasa";
 import JasaPage from "@/pages/jasakesenian/jasapage";
-import CountDetailAcaraTerkini from "@/pages/detailacara/countdetailacaraterkini";
-import DetailAcaraPage from "@/pages/detailacara/detailacarapage";
 
 
 export default function Page() {
@@ -57,8 +55,6 @@ export default function Page() {
     <div className="pt-14">
       <CountAcara/>
       <AcaraPage/>
-      <CountDetailAcaraTerkini/>
-      <DetailAcaraPage/>
       <CountProduk/>
       <ProdukPage/>
       <CountJasa/>

@@ -5,14 +5,16 @@ import { db } from '@/lib/firebase';
 import { collection, addDoc } from 'firebase/firestore';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
-interface AcaraForm {
+interface EventForm {
   title: string;
   description: string;
   imageUrl: string;
+  route: string;
+  mapEmbedUrl: string;
 }
 
-export default function AdminInputAcara() {
-  const { register, handleSubmit, reset } = useForm<AcaraForm>();
+export default function AdminEventForm() {
+  const { register, handleSubmit, reset } = useForm<EventForm>();
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState('');
 
@@ -25,23 +27,25 @@ export default function AdminInputAcara() {
     reader.readAsDataURL(file);
   };
 
-  const onSubmit: SubmitHandler<AcaraForm> = async (data) => {
+  const onSubmit: SubmitHandler<EventForm> = async (data) => {
     if (!imageUrl) {
       alert('Harap unggah gambar terlebih dahulu.');
       return;
     }
     setLoading(true);
     try {
-      await addDoc(collection(db, 'acara'), {
+      await addDoc(collection(db, 'events'), {
         title: data.title,
         description: data.description,
         imageUrl,
+        route: data.route.split(',').map((r) => r.trim()),
+        mapEmbedUrl: data.mapEmbedUrl,
       });
       reset();
       setImageUrl('');
       alert('Acara berhasil ditambahkan!');
     } catch (error) {
-      console.error('Error adding document:', error);
+      console.error('Error adding event:', error);
     }
     setLoading(false);
   };
@@ -79,6 +83,22 @@ export default function AdminInputAcara() {
             className="w-full border p-2 rounded"
           />
           {imageUrl && <img src={imageUrl} alt="Preview" className="mt-2 w-32 h-32 object-cover" />}
+        </div>
+        <div>
+          <label className="block text-sm font-medium">Rute (pisahkan dengan koma)</label>
+          <input
+            type="text"
+            {...register('route')}
+            className="w-full border p-2 rounded"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium">URL Embed Peta</label>
+          <input
+            type="text"
+            {...register('mapEmbedUrl')}
+            className="w-full border p-2 rounded"
+          />
         </div>
         <button
           type="submit"

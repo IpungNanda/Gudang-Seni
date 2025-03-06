@@ -13,7 +13,7 @@ interface Acara {
   imageUrl: string;
 }
 
-export default function AcaraPage() {
+export default function DashboardAcara() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [image, setImage] = useState<File | null>(null);
@@ -24,7 +24,7 @@ export default function AcaraPage() {
   useEffect(() => {
     const fetchAcara = async () => {
       try {
-        const querySnapshot = await getDocs(collection(db, 'acara'));
+        const querySnapshot = await getDocs(collection(db, 'events'));
         const acaraData: Acara[] = querySnapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
@@ -54,10 +54,10 @@ export default function AcaraPage() {
         imageUrl,
       };
 
-      const docRef = await addDoc(collection(db, 'acara'), newAcara);
+      const docRef = await addDoc(collection(db, 'events'), newAcara);
       setAcaraList([...acaraList, { id: docRef.id, ...newAcara }]);
 
-      alert('Acara berhasil diunggah!');
+      alert('Acara berhasil ditambahkan!');
       setTitle('');
       setDescription('');
       setImage(null);
@@ -71,7 +71,7 @@ export default function AcaraPage() {
   const handleDelete = async (id: string) => {
     if (!confirm('Apakah Anda yakin ingin menghapus acara ini?')) return;
     try {
-      await deleteDoc(doc(db, 'acara', id));
+      await deleteDoc(doc(db, 'events', id));
       setAcaraList(acaraList.filter((item) => item.id !== id));
       alert('Acara berhasil dihapus!');
     } catch (error) {
@@ -81,7 +81,7 @@ export default function AcaraPage() {
 
   return (
     <div className="p-6 max-w-3xl mx-auto">
-      <h2 className="text-2xl font-bold mt-6 mb-4">Daftar Acara</h2>
+      <h2 className="text-2xl font-bold mt-6 mb-4">Manajemen Acara</h2>
       <input 
         type="text" 
         placeholder="Cari acara..." 
