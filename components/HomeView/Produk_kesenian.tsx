@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation"; // Tambahkan ini
 import ProductCard from "@/components/HomeView/Card";
 import { db } from "@/lib/firebase";
 import { collection, getDocs } from "firebase/firestore";
@@ -22,6 +23,7 @@ export default function ProdukKesenian() {
   const [products, setProducts] = useState<Product[]>([]);
   const [index, setIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
+  const router = useRouter(); // Tambahkan useRouter
 
   useEffect(() => {
     const handleResize = () => {
@@ -55,7 +57,9 @@ export default function ProdukKesenian() {
           transition={{ type: "spring", stiffness: 300, damping: 30 }}
         >
           {products.map((product) => (
-            <ProductCard key={product.id} product={product} />
+            <div key={product.id} onClick={() => router.push(`/produk/${product.id}`)} className="cursor-pointer">
+              <ProductCard product={product} />
+            </div>
           ))}
         </motion.div>
       </div>

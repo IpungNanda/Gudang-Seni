@@ -1,8 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { db } from '@/lib/firebase';
-import { collection, addDoc } from 'firebase/firestore';
+import { collection, addDoc, getDocs } from 'firebase/firestore';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
 interface ServiceForm {
@@ -19,6 +19,18 @@ export default function InputJasa() {
   const { register, handleSubmit, reset } = useForm<ServiceForm>();
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState('');
+  const [whatsappNumber, setWhatsappNumber] = useState('');
+
+  useEffect(() => {
+    const fetchWhatsappNumber = async () => {
+      const querySnapshot = await getDocs(collection(db, 'settings'));
+      if (!querySnapshot.empty) {
+        const data = querySnapshot.docs[0].data();
+        setWhatsappNumber(data.whatsappNumber || '');
+      }
+    };
+    fetchWhatsappNumber();
+  }, []);
 
   const uploadImage = (file: File) => {
     if (!file) return;
@@ -96,6 +108,11 @@ export default function InputJasa() {
           {loading ? 'Menyimpan...' : 'Simpan Jasa'}
         </button>
       </form>
+      {whatsappNumber && (
+        <div className="mt-4 text-center">
+          <a href={`https://wa.me/${whatsappNumber}`} target="_blank" rel="noopener noreferrer" className="w-full bg-green-500 text-white p-2 rounded hover:bg-green-700 block">Hubungi via WhatsApp</a>
+        </div>
+      )}
     </div>
   );
 }

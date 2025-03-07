@@ -1,8 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { db } from '@/lib/firebase';
-import { collection, addDoc } from 'firebase/firestore';
+import { collection, addDoc, getDocs } from 'firebase/firestore';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
 interface ProductForm {
@@ -12,6 +12,8 @@ interface ProductForm {
   location: string;
   rating: number;
   sold: number;
+  stock: number;
+  description: string;
   imageUrl: string;
 }
 
@@ -19,6 +21,18 @@ export default function InputProduk() {
   const { register, handleSubmit, reset } = useForm<ProductForm>();
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState('');
+  const [whatsappNumber, setWhatsappNumber] = useState('');
+
+  useEffect(() => {
+    const fetchWhatsappNumber = async () => {
+      const querySnapshot = await getDocs(collection(db, 'settings'));
+      if (!querySnapshot.empty) {
+        const data = querySnapshot.docs[0].data();
+        setWhatsappNumber(data.whatsappNumber || '');
+      }
+    };
+    fetchWhatsappNumber();
+  }, []);
 
   const uploadImage = (file: File) => {
     if (!file) return;
@@ -34,6 +48,10 @@ export default function InputProduk() {
       alert('Harap unggah gambar terlebih dahulu.');
       return;
     }
+    if (data.stock < 0) {
+      alert('Stok tidak boleh negatif.');
+      return;
+    }
     setLoading(true);
     try {
       await addDoc(collection(db, 'products'), {
@@ -43,6 +61,8 @@ export default function InputProduk() {
         location: data.location,
         rating: data.rating,
         sold: data.sold,
+        stock: data.stock,
+        description: data.description,
         imageUrl,
       });
       reset();
@@ -88,6 +108,14 @@ export default function InputProduk() {
           <input type="number" {...register('sold', { required: true })} className="w-full border p-2 rounded" required />
         </div>
         <div>
+          <label className="block text-sm font-medium">Stok</label>
+          <input type="number" {...register('stock', { required: true, min: 0 })} className="w-full border p-2 rounded" required />
+        </div>
+        <div>
+          <label className="block text-sm font-medium">Deskripsi</label>
+          <textarea {...register('description', { required: true })} className="w-full border p-2 rounded" required />
+        </div>
+        <div>
           <label className="block text-sm font-medium">Upload Gambar</label>
           <input type="file" onChange={(e) => { if (e.target.files && e.target.files.length > 0) { uploadImage(e.target.files[0]); } }} className="w-full border p-2 rounded" />
           {imageUrl && <img src={imageUrl} alt="Preview" className="mt-2 w-32 h-32 object-cover" />}
@@ -96,6 +124,11 @@ export default function InputProduk() {
           {loading ? 'Menyimpan...' : 'Simpan Produk'}
         </button>
       </form>
+      {whatsappNumber && (
+        <div className="mt-4 text-center">
+          <a href={`https://wa.me/${whatsappNumber}`} target="_blank" rel="noopener noreferrer" className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-700 block">Hubungi via WhatsApp</a>
+        </div>
+      )}
     </div>
   );
 }

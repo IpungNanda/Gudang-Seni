@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import ProductCard from "@/components/HomeView/Card";
 import { db } from "@/lib/firebase";
 import { collection, getDocs } from "firebase/firestore";
@@ -22,6 +23,7 @@ export default function JasaKesenian() {
   const [services, setServices] = useState<Service[]>([]);
   const [index, setIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const handleResize = () => {
@@ -55,7 +57,9 @@ export default function JasaKesenian() {
           transition={{ type: "spring", stiffness: 300, damping: 30 }}
         >
           {services.map((service) => (
-            <ProductCard key={service.id} product={service} />
+            <div key={service.id} onClick={() => router.push(`/jasa/${service.id}`)} className="cursor-pointer">
+              <ProductCard product={service} />
+            </div>
           ))}
         </motion.div>
       </div>
