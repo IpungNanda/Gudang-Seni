@@ -102,8 +102,8 @@ const Sidebar = () => {
           </li>
           <li className="py-4 flex px-6 hover:bg-green-900/90">
             <FaComments />
-            <Link href="/admin-workstation/kerjasama" className="block font-bold">
-              Kerja Sama
+            <Link href="/admin-workstation/comments" className="block font-bold">
+              Pesan
             </Link>
           </li>
         </ul>

@@ -6,6 +6,7 @@ import Acara_Terkini from "@/components/HomeView/Kegiatan_Terkini";
 import Kerjasama from "@/components/HomeView/Kerjasama";
 import Navbar from "@/components/HomeView/Navbar"
 import Pertanyaan from "@/components/HomeView/Pertanyaan";
+import Pesan from "@/components/HomeView/Pesan";
 import ProdukKesenian from "@/components/HomeView/Produk_kesenian";
 
 export default function Home() {
@@ -21,6 +22,7 @@ export default function Home() {
      <JasaKesenian/>
      <Join/>
      <Kerjasama/>
+     <Pesan/>
      <Pertanyaan/>
     </div>
   );

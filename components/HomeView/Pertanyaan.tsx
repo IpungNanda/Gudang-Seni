@@ -7,7 +7,7 @@ import { FiChevronDown, FiChevronUp } from 'react-icons/fi';
 
 const faqs = [
   { question: 'Apa itu GudangSeni?', answer: 'SeniKita adalah platform untuk...' },
-  { question: 'Bagaimana cara membuat akun di GudangSeni?', answer: 'Anda bisa mendaftar dengan...' },
+  { question: 'Bagaimana cara bekerja sama dengan GudangSeni?', answer: 'Anda bisa mendaftar dengan...' },
   { question: 'Apa jenis produk dan jasa yang tersedia di GudangSeni?', answer: 'SeniKita menyediakan berbagai produk...' },
   { question: 'Bagaimana cara melakukan pembayaran di GudangSeni?', answer: 'Pembayaran dapat dilakukan melalui...' }
 ];

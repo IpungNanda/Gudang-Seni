@@ -33,21 +33,14 @@ export default function Navbar() {
           />
         </Link>
 
-        {/* Search Bar */}
-        <div className="flex-1 mx-4 hidden md:block">
-          <input
-            type="text"
-            placeholder="Cari kesenian.."
-            className="w-full p-2 pl-10 border border-green-500 rounded-full focus:outline-none focus:ring-2 focus:ring-green-900/90"
-          />
-        </div>
+
 
         {/* Menu Desktop */}
         <ul className="hidden md:flex items-center space-x-6 text-gray-700">
           <li>
-            <Link href="#" className="flex items-center space-x-1 hover:text-green-900/90">
+            <Link href="#acara" className="flex items-center space-x-1 hover:text-green-900/90">
               <FaMapMarkerAlt />
-              <span>Peta Kesenian</span>
+              <span>Acara Terkini</span>
             </Link>
           </li>
           <li>

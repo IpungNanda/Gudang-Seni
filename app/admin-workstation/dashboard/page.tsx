@@ -9,6 +9,7 @@ import ProdukPage from "@/pages/produkkesenian/produkpage";
 import CountProduk from "@/pages/produkkesenian/countproduk";
 import CountJasa from "@/pages/jasakesenian/countjasa";
 import JasaPage from "@/pages/jasakesenian/jasapage";
+import AdminComments from "../comments/page";
 
 
 export default function Page() {
