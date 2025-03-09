@@ -38,7 +38,7 @@ export default function About() {
   }, [displayText, isDeleting, currentWordIndex, words]);
 
   return (
-    <div>
+    <div id="about">
       <div
         className="relative flex flex-col md:flex-row items-center justify-center min-h-screen bg-green-500 px-6 py-16"
         style={{ backgroundImage: `url(${bgAbout.src})`, backgroundSize: "cover", backgroundPosition: "center" }}

@@ -19,6 +19,11 @@ export default function Join() {
     return () => clearInterval(interval);
   }, []);
 
+  const whatsappMessage = encodeURIComponent(
+    "Mari bersama-sama mengangkat nilai seni dan kreativitas! Kami siap membantu Anda memasarkan produk dan jasa, membuka peluang baru, dan menjangkau lebih banyak pelanggan. Bergabunglah dengan Gudang Seni dan wujudkan kolaborasi yang menginspirasi!"
+  );
+  const whatsappLink = `https://wa.me/62895805399090?text=${whatsappMessage}`;
+
   return (
     <div className="flex flex-col md:flex-row items-center justify-center min-h-screen p-6 md:p-12 gap-8 w-full max-w-6xl mx-auto">
       {/* Bingkai di Kiri */}
@@ -53,9 +58,14 @@ export default function Join() {
         <p className="text-lg md:text-xl text-gray-700 mt-4">
           Bersama-sama, kita dapat menciptakan momentum yang kuat, membangun hubungan yang bermakna, dan merangkul keragaman untuk mencapai tujuan bersama.
         </p>
-        <button className="mt-6 px-6 py-3 md:px-8 md:py-4 bg-green-500 text-white text-lg font-bold rounded-lg shadow-md hover:bg-green-700 transition duration-300">
+        <a
+          href={whatsappLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-6 px-6 py-3 md:px-8 md:py-4 bg-green-500 text-white text-lg font-bold rounded-lg shadow-md hover:bg-green-700 transition duration-300"
+        >
           Daftar Sekarang!
-        </button>
+        </a>
       </div>
     </div>
   );
